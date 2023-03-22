@@ -1,16 +1,16 @@
 import useSearch from '../hooks/useSearch'
 import SearchIcon from './icons/SearchIcon'
 import Loading from './Loading'
-import MovieList from './MovieList'
+import Movies from './MovieList'
 
 export default function Search () {
-  const { search, movies, loading, handleChange, handleSubmit } = useSearch()
+  const { search, movies, loading, error, handleChange, handleSubmit } = useSearch()
   return (
     <main>
-      <form onSubmit={handleSubmit} className='flex bg-zinc-900 justify-between rounded-full'>
+      <form onSubmit={handleSubmit} className='flex bg-zinc-800 justify-between rounded-full my-2'>
         <input
           value={search}
-          placeholder='Avengers, Star Wars, The Lord of Rings...'
+          placeholder='Search a movie'
           onChange={handleChange}
           className='bg-transparent w-full outline-none px-4 py-2'
         />
@@ -19,7 +19,8 @@ export default function Search () {
         </button>
       </form>
       <section>
-        {loading ? <Loading /> : <MovieList movies={movies} />}
+        {error && <p className='text-xl text-blue-400 font-bold'>{error}</p>}
+        {loading ? <Loading /> : <Movies movies={movies} />}
       </section>
     </main>
   )
